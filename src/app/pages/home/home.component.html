@@ -1,1 +1,29 @@
-<p>sdgfdsffffff !</p>
+<div class="bg-white rounded-2xl shadow shadow-black h-144 max-w-1/3 w-272">
+    <h1 class="text-6xl text-center py-4 text-secondary-900">
+        Calculator Game
+    </h1>
+
+    <div class="form-input">
+        <label for="name" id="nick-label">
+            {{ "name.label" | translate }}
+        </label>
+        <div class="input-text">
+            <input
+                type="text"
+                name="nick"
+                [placeholder]="'name.select' | translate"
+            />
+        </div>
+    </div>
+    <div class="form-input">
+        <label for="language" id="language-label"> Language </label>
+        <select name="language" id="language">
+            <option value="" id="language-detail" disabled>
+                Select a language
+            </option>
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="pt">Português</option>
+        </select>
+    </div>
+</div>

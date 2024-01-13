@@ -2,3 +2,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: "Salsa"; /* Puedes darle el nombre que desees */
+    src: url("assets/fonts/Salsa-Regular.ttf") format("truetype"); /* Ruta relativa o absoluta a tu fuente TTF */
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: "Salsa", sans-serif; /* Usa la fuente en el cuerpo del documento */
+}
