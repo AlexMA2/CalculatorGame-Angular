@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { TooltipDirective } from 'src/app/directives/tooltip/tooltip.directive';
+import { TooltipModule } from 'src/app/directives/tooltip/tooltip.module';
 
 const routes: Routes = [
     {
@@ -14,6 +16,11 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [HomeComponent],
-    imports: [CommonModule, TranslateModule, RouterModule.forChild(routes)],
+    imports: [
+        CommonModule,
+        TranslateModule,
+        TooltipModule,
+        RouterModule.forChild(routes),
+    ],
 })
 export class HomeModule {}

@@ -1,5 +1,15 @@
 {
-    "name": {
-        "select": "Select a name"
+    "username": {
+        "write": "Write an username",
+        "label": "Username"
+    },
+    "start": {
+        "label": "Quick Start"
+    },
+    "instructions": {
+        "label": "Instructions"
+    },
+    "ranking": {
+        "label": "Ranking"
     }
 }
