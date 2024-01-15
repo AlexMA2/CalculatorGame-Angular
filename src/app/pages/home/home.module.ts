@@ -6,6 +6,7 @@ import { HomeComponent } from './home.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { TooltipDirective } from 'src/app/directives/tooltip/tooltip.directive';
 import { TooltipModule } from 'src/app/directives/tooltip/tooltip.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
     {
@@ -20,6 +21,8 @@ const routes: Routes = [
         CommonModule,
         TranslateModule,
         TooltipModule,
+        FormsModule,
+        ReactiveFormsModule,
         RouterModule.forChild(routes),
     ],
 })

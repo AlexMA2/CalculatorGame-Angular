@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-home',
@@ -7,6 +8,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
     constructor() {}
+
+    nickControl = new FormControl('');
 
     ngOnInit(): void {
         console.log('HomeComponent initialized');
