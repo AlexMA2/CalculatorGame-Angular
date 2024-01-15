@@ -21,14 +21,20 @@
         <div class="flex flex-col pb-4 flex-1 gap-4">
             <button
                 [tooltip]="
-                    !nickControl.dirty ? '' : ('username.write' | translate)
+                    nickControl.invalid ? ('username.validate' | translate) : ''
                 "
-                [disabled]="!nickControl.dirty"
+                [disabled]="nickControl.invalid"
                 class="text-center text-white text-2xl bg-secondary-600 rounded-lg px-4 py-2"
+                [ngClass]="{
+                    'bg-opacity-50 cursor-not-allowed': nickControl.invalid,
+                }"
             >
                 <a
                     class="block w-full h-full"
-                    [routerLink]="!nickControl.dirty ? '' : ['/game']"
+                    [ngClass]="{
+                        'bg-opacity-50 cursor-not-allowed': nickControl.invalid,
+                    }"
+                    [routerLink]="nickControl.invalid ? '' : ['/game']"
                     >{{ "start.label" | translate }}</a
                 >
             </button>

@@ -28,7 +28,7 @@ export class TooltipDirective {
 
     @HostListener('mouseenter')
     onMouseEnter(): void {
-        if (this.componentRef === null) {
+        if (this.componentRef === null && this.tooltip.length > 0) {
             const componentFactory =
                 this.componentFactoryResolver.resolveComponentFactory(
                     TooltipComponent

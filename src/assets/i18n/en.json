@@ -1,7 +1,8 @@
 {
     "username": {
         "write": "Write an username",
-        "label": "Username"
+        "label": "Username",
+        "validate": "Username must be at least 3 characters long"
     },
     "start": {
         "label": "Quick Start"

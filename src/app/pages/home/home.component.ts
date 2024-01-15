@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-home',
@@ -9,7 +9,10 @@ import { FormControl } from '@angular/forms';
 export class HomeComponent implements OnInit {
     constructor() {}
 
-    nickControl = new FormControl('');
+    nickControl = new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+    ]);
 
     ngOnInit(): void {
         console.log('HomeComponent initialized');
