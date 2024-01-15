@@ -1,3 +1,16 @@
 <main
-    class="flex flex-col bg-primary-900 justify-start items-center min-h-screen"
-></main>
+    class="flex flex-row flex-wrap bg-primary-900 justify-center gap-8 items-center min-h-screen"
+>
+    <p class="font-bold text-center text-9xl">
+        {{ "start.counter" | translate }}
+    </p>
+    <div
+        class="rounded-full border-2 grid place-items-center border-green-500 bg-green-200 md:w-80 md:h-80 sm:w-52 sm:h-52"
+    >
+        <p
+            class="text-primary-900 font-bold text-center text-9xl animate-growShrink"
+        >
+            {{ counter }}
+        </p>
+    </div>
+</main>

@@ -5,7 +5,8 @@
         "validate": "Username must be at least 3 characters long"
     },
     "start": {
-        "label": "Quick Start"
+        "label": "Quick Start",
+        "counter": "Starting in "
     },
     "instructions": {
         "label": "Instructions"
