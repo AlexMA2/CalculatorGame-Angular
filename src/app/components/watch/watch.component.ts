@@ -1,0 +1,50 @@
+import { CommonModule } from '@angular/common';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+} from '@angular/core';
+import { Howl } from 'howler';
+
+@Component({
+    selector: 'app-watch',
+    templateUrl: './watch.component.html',
+    styleUrls: ['./watch.component.scss'],
+    imports: [CommonModule],
+    standalone: true,
+})
+export class WatchComponent implements OnInit, OnDestroy {
+    @Input() counter = 60;
+    @Output() finished = new EventEmitter<void>();
+
+    sound = new Howl({
+        src: ['/assets/sounds/clock-ticking.mp3'],
+        volume: 0.1,
+    });
+
+    interval!: ReturnType<typeof setInterval>;
+
+    ngOnInit(): void {
+        this.interval = setInterval(() => {
+            this.counter--;
+
+            if (this.counter === 10) {
+                this.sound.play();
+            }
+
+            if (this.counter === 0) {
+                clearInterval(this.interval);
+                this.sound.stop();
+                this.finished.emit();
+            }
+        }, 1000);
+    }
+
+    ngOnDestroy(): void {
+        clearInterval(this.interval);
+        this.sound.stop();
+    }
+}

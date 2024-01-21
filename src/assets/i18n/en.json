@@ -13,5 +13,36 @@
     },
     "ranking": {
         "label": "Ranking"
+    },
+    "back": {
+        "label": "Back"
+    },
+    "backspace": {
+        "label": "Backspace"
+    },
+    "send": {
+        "label": "Send"
+    },
+    "score": {
+        "label": "Score"
+    },
+    "points": {
+        "label": "Points"
+    },
+    "operation": {
+        "label": "Operation"
+    },
+    "solved": {
+        "label": "Solved"
+    },
+    "correct": {
+        "label": "Correct"
+    },
+    "incorrect": {
+        "label": "Incorrect"
+    },
+    "answer": {
+        "correct": "Correct answer",
+        "user": "Your answer"
     }
 }

@@ -5,15 +5,15 @@ module.exports = {
         extend: {
             colors: {
                 primary: {
-                    100: "#F8E0E6",
-                    200: "#F48FB1",
-                    300: "#EC407A",
-                    400: "#D81B60",
-                    500: "#C2185B",
-                    600: "#AD1457",
-                    700: "#880E4F",
-                    800: "#7D1B52",
-                    900: "#621C2C",
+                    100: "#E39F8C",
+                    200: "#DF917C",
+                    300: "#DB836B",
+                    400: "#D7765B",
+                    500: "#D3684A",
+                    600: "#CF5A3A",
+                    700: "#C55030",
+                    800: "#B5492C",
+                    900: "#A44328",
                 },
                 secondary: {
                     100: "#FFD700",
@@ -54,9 +54,15 @@ module.exports = {
                 "0%, 100%": { transform: "scale(1)" },
                 "50%": { transform: "scale(1.2)" },
             },
+            tick: {
+                "100%": {
+                    transform: "rotate(360deg)",
+                },
+            },
         },
         animation: {
             growShrink: "growShrink 1s ease-in-out infinite",
+            tick: "tick 60s linear infinite",
         },
     },
     plugins: [],

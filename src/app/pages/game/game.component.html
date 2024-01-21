@@ -1,16 +1,153 @@
 <main
-    class="flex flex-row flex-wrap bg-primary-900 justify-center gap-8 items-center min-h-screen"
+    class="flex flex-col flex-wrap bg-primary-100 justify-center items-center min-h-screen"
 >
-    <p class="font-bold text-center text-9xl">
-        {{ "start.counter" | translate }}
-    </p>
-    <div
-        class="rounded-full border-2 grid place-items-center border-green-500 bg-green-200 md:w-80 md:h-80 sm:w-52 sm:h-52"
-    >
-        <p
-            class="text-primary-900 font-bold text-center text-9xl animate-growShrink"
+    <div class="fixed top-4 left-4">
+        <a
+            class="inline-flex flex-row items-center outline-none gap-2 text-2xl px-4 py-1 font-bold text-cyan-800 rounded-full hover:bg-cyan-300 box-content border-none shadow-none ring-0"
+            [routerLink]="['/home']"
         >
-            {{ counter }}
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+            >
+                <g transform="rotate(-90 10 10)">
+                    <path
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                        d="m9.551.222l-7.82 7.696c-.306.416-.309.78-.008 1.091c.301.312.665.314 1.093.007l6.428-6.334V19.32c.041.453.319.68.833.681c.514.001.792-.226.833-.68l-.111-16.64l6.38 6.328c.415.321.78.321 1.092 0c.313-.32.334-.663.062-1.027l-7.7-7.76A.776.776 0 0 0 10.078 0a.674.674 0 0 0-.526.222"
+                    />
+                </g>
+            </svg>
+
+            {{ "back.label" | translate }}</a
+        >
+    </div>
+    <div
+        *ngIf="counter >= 0 && !finished"
+        class="flex justify-center gap-8 items-center"
+    >
+        <p class="font-bold text-center text-9xl">
+            {{ "start.counter" | translate }}
         </p>
+        <div
+            class="rounded-full border-2 grid place-items-center border-green-500 bg-green-200 md:w-80 md:h-80 sm:w-52 sm:h-52"
+        >
+            <p
+                class="text-primary-900 font-bold text-center text-9xl animate-growShrink"
+            >
+                {{ counter }}
+            </p>
+        </div>
+    </div>
+
+    <div
+        *ngIf="counter < 0 && !finished"
+        class="flex flex-col justify-center items-center p-4 h-full"
+    >
+        <app-watch (finished)="onFinishTimer()"> </app-watch>
+
+        <div
+            class="flex flex-row gap-2 items-center justify-between w-full mt-4 mb-2"
+        >
+            <p
+                class="text-base rounded-full bg-lime-300 border border-lime-800 p-2 flex-0 h-12 w-12 grid place-content-center"
+            >
+                {{ operationsSolved + 1 }}º
+            </p>
+            <p class="text-4xl font-bold text-center text-slate-800 mr-10">
+                {{ operation | operation }}
+            </p>
+            <div></div>
+        </div>
+
+        <input
+            readonly
+            class="focus:outline-none bg-white border-slate-800 border-[3px] rounded-xl w-full min-h-20 mb-4 text-slate-800 text-center text-3xl font-bold"
+            type="text"
+            [formControl]="textField"
+        />
+        <div class="grid">
+            <div class="grid grid-cols-3 gap-2">
+                <button
+                    (click)="onButtonClick(number)"
+                    *ngFor="let number of buttons"
+                    class="rounded-md border-2 border-slate-700 bg-slate-700 text-center text-4xl font-bold text-slate-200 p-2"
+                >
+                    {{ number | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div
+        *ngIf="finished"
+        class="w-full flex flex-col justify-center items-center"
+    >
+        <div
+            class="bg-blue-700 rounded-md flex flex-col shadow-sm shadow-blue-400 p-5"
+        >
+            <h1 class="text-white text-3xl">
+                {{ "score.label" | translate }}
+            </h1>
+            <p class="text-lime-300 text-3xl mb-3">
+                {{ result.score }}
+                <span class="text-slate-300">
+                    {{ "points.label" | translate }}
+                </span>
+            </p>
+
+            <div
+                class="flex flex-row border-t border-t-slate-300 pt-2 text-white"
+            >
+                <p class="border-r border-r-slate-300 px-2">
+                    {{ "solved.label" | translate }}: {{ operationsSolved }}
+                </p>
+                <p class="border-r border-r-slate-300 px-2">
+                    {{ "correct.label" | translate }}: {{ result.correct }}
+                </p>
+                <p class="px-2">
+                    {{ "incorrect.label" | translate }}: {{ result.incorrect }}
+                </p>
+            </div>
+        </div>
+
+        <div
+            class="h-96 overflow-y-auto w-full max-w-144 border-spacing-2 border"
+        >
+            <table class="w-full border-separate rounded-lg">
+                <thead
+                    class="bg-slate-200 border border-slate-800 rounded-t-xl"
+                >
+                    <tr>
+                        <th class="py-2 rounded-xl">
+                            {{ "operation.label" | translate }}
+                        </th>
+                        <th class="py-2">
+                            {{ "answer.correct" | translate }}
+                        </th>
+                        <th class="py-2">
+                            {{ "answer.user" | translate }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let operation of operations"
+                        [ngClass]="{
+                            'bg-green-200 border border-green-500':
+                                operation.result === operation.userResult,
+                            'bg-red-200 border border-red-500':
+                                operation.result !== operation.userResult
+                        }"
+                    >
+                        <td class="py-2 pl-2">{{ operation | operation }}</td>
+                        <td class="py-2 pl-2">{{ operation.result }}</td>
+                        <td class="py-2 pl-2">{{ operation.userResult }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </main>
