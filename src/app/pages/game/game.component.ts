@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Subject, filter, fromEvent, takeUntil } from 'rxjs';
 import { Operation } from 'src/app/pipes/operation/operation.model';
 
 @Component({
@@ -9,8 +10,8 @@ import { Operation } from 'src/app/pipes/operation/operation.model';
 export class GameComponent implements OnInit, OnDestroy {
     interval!: ReturnType<typeof setInterval>;
 
-    counter = 0;
-
+    counter = 5;
+    ngUnsubscribe = new Subject<void>();
     textField = new FormControl('');
 
     buttons = [
@@ -43,24 +44,40 @@ export class GameComponent implements OnInit, OnDestroy {
     };
 
     ngOnInit(): void {
+        this.startGame();
+    }
+
+    startGame(): void {
+        this.textField.setValue('');
         this.createOperations();
         this.interval = setInterval(() => {
             this.counter--;
             if (this.counter === -1) {
                 clearInterval(this.interval);
 
-                this.operations.map((operation) => {
-                    operation.userResult = Number(
-                        Math.floor(Math.random() * 100)
-                    );
-                });
-                this.operationsSolved = 30;
-                this.onFinishTimer();
-
-                window.addEventListener(
-                    'keydown',
-                    this.handleKeyDown.bind(this)
-                );
+                fromEvent<KeyboardEvent>(document, 'keydown')
+                    .pipe(
+                        takeUntil(this.ngUnsubscribe),
+                        filter((event) =>
+                            [
+                                '0',
+                                '1',
+                                '2',
+                                '3',
+                                '4',
+                                '5',
+                                '6',
+                                '7',
+                                '8',
+                                '9',
+                                'Enter',
+                                'Backspace',
+                            ].includes(event.key)
+                        )
+                    )
+                    .subscribe((event) => {
+                        this.handleKeyDown(event);
+                    });
             }
         }, 1000);
     }
@@ -76,10 +93,7 @@ export class GameComponent implements OnInit, OnDestroy {
                 if (!this.textField.value) {
                     return;
                 }
-                console.log(
-                    this.operations[this.operationsSolved],
-                    this.operationsSolved
-                );
+
                 this.operations[this.operationsSolved].userResult = Number(
                     this.textField.value
                 );
@@ -117,13 +131,13 @@ export class GameComponent implements OnInit, OnDestroy {
             }
 
             if (this.operators[index] === '*') {
-                firstNumber = Math.floor(Math.random() * 31);
-                secondNumber = Math.floor(Math.random() * 31);
+                firstNumber = Math.floor(Math.random() * 30 + 1);
+                secondNumber = Math.floor(Math.random() * 30 + 1);
             }
 
             if (this.operators[index] === '/') {
-                let quotient = Math.floor(Math.random() * 31);
-                let divisor = Math.floor(Math.random() * 31);
+                let quotient = Math.floor(Math.random() * 30 + 1);
+                let divisor = Math.floor(Math.random() * 30 + 1);
 
                 firstNumber = quotient * divisor;
                 secondNumber = divisor;
@@ -171,13 +185,30 @@ export class GameComponent implements OnInit, OnDestroy {
                 this.result.incorrect++;
             }
         });
-
+        this.ngUnsubscribe.next();
         this.result.score =
-            Math.floor((this.result.correct * 10) / this.operations.length) -
-            Math.floor((this.result.incorrect * 1.5) / this.operations.length);
+            Math.floor(this.result.correct * 10) -
+            Math.floor(this.result.incorrect * 1.5);
+    }
+
+    onPlayAgain(): void {
+        this.counter = 5;
+        this.operationsSolved = 0;
+        this.finished = false;
+        this.result = {
+            correct: 0,
+            incorrect: 0,
+            score: 0,
+        };
+        this.operations = [];
+
+        this.textField.reset();
+
+        this.startGame();
     }
 
     ngOnDestroy(): void {
+        this.ngUnsubscribe.next();
         clearInterval(this.interval);
     }
 }

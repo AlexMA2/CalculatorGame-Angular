@@ -46,7 +46,7 @@
         *ngIf="counter < 0 && !finished"
         class="flex flex-col justify-center items-center p-4 h-full"
     >
-        <app-watch (finished)="onFinishTimer()"> </app-watch>
+        <app-watch [counter]="2" (finished)="onFinishTimer()"> </app-watch>
 
         <div
             class="flex flex-row gap-2 items-center justify-between w-full mt-4 mb-2"
@@ -86,14 +86,14 @@
         class="w-full flex flex-col justify-center items-center"
     >
         <div
-            class="bg-blue-700 rounded-md flex flex-col shadow-sm shadow-blue-400 p-5"
+            class="rounded-lg flex flex-col shadow-sm shadow-blue-300 p-5 font-extrabold bg-gradient-to-br from-blue-800 to-blue-400 mb-4"
         >
             <h1 class="text-white text-3xl">
                 {{ "score.label" | translate }}
             </h1>
-            <p class="text-lime-300 text-3xl mb-3">
+            <p class="text-lime-300 text-5xl mb-3 font-extrabold">
                 {{ result.score }}
-                <span class="text-slate-300">
+                <span class="text-slate-300 text-base font-normal">
                     {{ "points.label" | translate }}
                 </span>
             </p>
@@ -114,6 +114,7 @@
         </div>
 
         <div
+            *ngIf="operations.length > 0"
             class="h-96 overflow-y-auto w-full max-w-144 border-spacing-2 border"
         >
             <table class="w-full border-separate rounded-lg">
@@ -121,13 +122,13 @@
                     class="bg-slate-200 border border-slate-800 rounded-t-xl"
                 >
                     <tr>
-                        <th class="py-2 rounded-xl">
+                        <th class="py-2 rounded-xl sticky">
                             {{ "operation.label" | translate }}
                         </th>
-                        <th class="py-2">
+                        <th class="py-2 sticky">
                             {{ "answer.correct" | translate }}
                         </th>
-                        <th class="py-2">
+                        <th class="py-2 sticky">
                             {{ "answer.user" | translate }}
                         </th>
                     </tr>
@@ -148,6 +149,20 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div class="flex flex-row gap-4 mt-4">
+            <button
+                class="text-center text-white text-2xl bg-secondary-600 rounded-lg px-4 py-2"
+                (click)="onPlayAgain()"
+            >
+                {{ "play_again.label" | translate }}
+            </button>
+            <button
+                class="text-center text-white text-2xl bg-secondary-600 rounded-lg px-4 py-2"
+            >
+                {{ "share.label" | translate }}
+            </button>
         </div>
     </div>
 </main>

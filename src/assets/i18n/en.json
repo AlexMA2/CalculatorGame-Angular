@@ -24,7 +24,7 @@
         "label": "Send"
     },
     "score": {
-        "label": "Score"
+        "label": "Your score"
     },
     "points": {
         "label": "Points"
@@ -44,5 +44,11 @@
     "answer": {
         "correct": "Correct answer",
         "user": "Your answer"
+    },
+    "play_again": {
+        "label": "Play again"
+    },
+    "share": {
+        "label": "Share"
     }
 }

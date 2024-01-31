@@ -6,7 +6,7 @@ import { FormControl, Validators } from '@angular/forms';
     templateUrl: './home.component.html',
     encapsulation: ViewEncapsulation.None,
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
     constructor() {}
 
     nickControl = new FormControl('', [
@@ -14,7 +14,5 @@ export class HomeComponent implements OnInit {
         Validators.minLength(3),
     ]);
 
-    ngOnInit(): void {
-        console.log('HomeComponent initialized');
-    }
+
 }
