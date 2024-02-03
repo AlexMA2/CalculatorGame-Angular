@@ -159,6 +159,7 @@
                 {{ "play_again.label" | translate }}
             </button>
             <button
+                (click)="onShare(shareDialog)"
                 class="text-center text-white text-2xl bg-secondary-600 rounded-lg px-4 py-2"
             >
                 {{ "share.label" | translate }}
@@ -166,3 +167,7 @@
         </div>
     </div>
 </main>
+
+<ng-template #shareDialog>
+    {{ "share.dialog" | translate }}
+</ng-template>

@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OperationModule } from 'src/app/pipes/operation/operation.module';
 import { WatchComponent } from 'src/app/components/watch/watch.component';
+import { ShareDialogComponent } from './share-dialog/share-dialog.component';
 
 const routes: Routes = [
     {

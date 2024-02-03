@@ -1,7 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject, filter, fromEvent, takeUntil } from 'rxjs';
 import { Operation } from 'src/app/pipes/operation/operation.model';
+import { ModalService } from 'src/app/services/modal/modal.service';
+import { ShareDialogComponent } from './share-dialog/share-dialog.component';
 
 @Component({
     selector: 'app-game',
@@ -42,6 +44,8 @@ export class GameComponent implements OnInit, OnDestroy {
         incorrect: 0,
         score: 0,
     };
+
+    constructor(private modalService: ModalService) {}
 
     ngOnInit(): void {
         this.startGame();
@@ -205,6 +209,27 @@ export class GameComponent implements OnInit, OnDestroy {
         this.textField.reset();
 
         this.startGame();
+    }
+
+    onShare(template: TemplateRef<any>): void {
+        const message = `I just scored ${this.result.score} points in the Calculator Game!`;
+        const url = `https://math-game-frontend.herokuapp.com/`;
+        const hashtags = 'calculator,math,game,angular';
+
+        // window.open(
+        //     `https://twitter.com/intent/tweet?text=${message}&url=${url}&hashtags=${hashtags}`,
+        //     '_blank'
+        // );
+
+        this.modalService
+            .openDialog(template, {
+                message,
+                url,
+                hashtags,
+            })
+            .subscribe((action: any) => {
+                console.log('Dialog closed', action);
+            });
     }
 
     ngOnDestroy(): void {
