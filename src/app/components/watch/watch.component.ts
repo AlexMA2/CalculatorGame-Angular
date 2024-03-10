@@ -1,20 +1,10 @@
-import { CommonModule } from '@angular/common';
-import {
-    Component,
-    EventEmitter,
-    Input,
-    OnDestroy,
-    OnInit,
-    Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Howl } from 'howler';
 
 @Component({
     selector: 'app-watch',
     templateUrl: './watch.component.html',
     styleUrls: ['./watch.component.scss'],
-    imports: [CommonModule],
-    standalone: true,
 })
 export class WatchComponent implements OnInit, OnDestroy {
     @Input() counter = 60;

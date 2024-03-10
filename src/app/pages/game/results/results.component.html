@@ -1,0 +1,83 @@
+<div class="w-full flex flex-col justify-center items-center">
+    <div class="relative flex flex-col gap-4">
+        <div
+            class="rounded-lg flex flex-col shadow-sm shadow-primary-300 p-5 font-extrabold bg-gradient-to-br from-primary-800 to-primary-400 mb-4"
+        >
+            <h1 class="text-white text-3xl">
+                {{ "score.label" | translate }}
+            </h1>
+            <p class="text-lime-300 text-5xl mb-3 font-extrabold">
+                {{ result.score }}
+                <span class="text-slate-300 text-base font-normal">
+                    {{ "points.label" | translate }}
+                </span>
+            </p>
+
+            <div
+                class="flex flex-row border-t border-t-slate-300 pt-2 text-white"
+            >
+                <p class="border-r border-r-slate-300 px-2">
+                    {{ "solved.label" | translate }}: {{ operationsSolved }}
+                </p>
+                <p class="border-r border-r-slate-300 px-2">
+                    {{ "correct.label" | translate }}: {{ result.correct }}
+                </p>
+                <p class="px-2">
+                    {{ "incorrect.label" | translate }}:
+                    {{ result.incorrect }}
+                </p>
+            </div>
+        </div>
+
+        <div class="flex flex-row gap-4 mt-4">
+            <button
+                class="text-center text-black text-2xl bg-secondary-400 rounded-lg px-4 py-2"
+                (click)="onPlayAgain()"
+            >
+                {{ "play_again.label" | translate }}
+            </button>
+            <button
+                (click)="onShare()"
+                class="text-center text-black text-2xl bg-secondary-400 rounded-lg px-4 py-2"
+            >
+                {{ "share.label" | translate }}
+            </button>
+        </div>
+    </div>
+
+    <div
+        *ngIf="operations.length > 0"
+        class="h-96 overflow-y-auto w-full max-w-144 border-spacing-2 border"
+    >
+        <table class="w-full border-separate rounded-lg">
+            <thead class="bg-slate-200 border border-slate-800 rounded-t-xl">
+                <tr>
+                    <th class="py-2 rounded-xl sticky">
+                        {{ "operation.label" | translate }}
+                    </th>
+                    <th class="py-2 sticky">
+                        {{ "answer.correct" | translate }}
+                    </th>
+                    <th class="py-2 sticky">
+                        {{ "answer.user" | translate }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                    *ngFor="let operation of operations"
+                    [ngClass]="{
+                        'bg-green-200 border border-green-500':
+                            operation.result === operation.userResult,
+                        'bg-red-200 border border-red-500':
+                            operation.result !== operation.userResult
+                    }"
+                >
+                    <td class="py-2 pl-2">{{ operation | operation }}</td>
+                    <td class="py-2 pl-2">{{ operation.result }}</td>
+                    <td class="py-2 pl-2">{{ operation.userResult }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

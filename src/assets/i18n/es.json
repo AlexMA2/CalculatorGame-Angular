@@ -1,0 +1,72 @@
+{
+    "answer": {
+        "correct": "Respuesta correcta",
+        "user": "Tu respuesta"
+    },
+    "back": {
+        "label": "Volver"
+    },
+    "backspace": {
+        "label": "Retroceso"
+    },
+    "correct": {
+        "label": "Correcto"
+    },
+    "game": {
+        "label": "Juego"
+    },
+    "incorrect": {
+        "label": "Incorrecto"
+    },
+    "instructions": {
+        "label": "Instrucciones"
+    },
+    "operation": {
+        "label": "Operación"
+    },
+    "play_again": {
+        "label": "Jugar de nuevo"
+    },
+    "points": {
+        "label": "Puntos"
+    },
+    "ranking": {
+        "label": "Clasificación"
+    },
+    "score": {
+        "label": "Tu puntaje"
+    },
+    "send": {
+        "label": "Enviar"
+    },
+    "share": {
+        "label": "Compartir"
+    },
+    "social_media": {
+        "facebook": "Compartir en Facebook",
+        "label": "Compartir tu puntaje en redes sociales",
+        "twitter": "Compartir en Twitter",
+        "whatsapp": "Compartir en WhatsApp"
+    },
+    "solved": {
+        "label": "Resuelto"
+    },
+    "start": {
+        "counter": "Comenzando en ",
+        "label": "Inicio rápido"
+    },
+    "tournament": {
+        "label": "Torneo"
+    },
+    "username": {
+        "label": "Nombre de usuario",
+        "validate": "El nombre de usuario debe tener al menos 3 caracteres",
+        "write": "Escribe un nombre de usuario"
+    },
+    "random_name": {
+        "label": "Nombre aleatorio"
+    },
+    "soon": {
+        "label": "Proximamente"
+    }
+}

@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { TooltipModule } from 'src/app/directives/tooltip/tooltip.module';
 
 import { HomeComponent } from './home.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { TooltipDirective } from 'src/app/directives/tooltip/tooltip.directive';
-import { TooltipModule } from 'src/app/directives/tooltip/tooltip.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DummyComponentsModule } from 'src/app/components/dummy-components.module';
+import { BrowserModule } from '@angular/platform-browser';
 
 const routes: Routes = [
     {
@@ -22,6 +23,7 @@ const routes: Routes = [
         TranslateModule,
         TooltipModule,
         FormsModule,
+        DummyComponentsModule,
         ReactiveFormsModule,
         RouterModule.forChild(routes),
     ],

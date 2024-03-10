@@ -1,12 +1,15 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GameComponent } from './game.component';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { OperationModule } from 'src/app/pipes/operation/operation.module';
 import { WatchComponent } from 'src/app/components/watch/watch.component';
+import { OperationModule } from 'src/app/pipes/operation/operation.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { GameComponent } from './game.component';
 import { ShareDialogComponent } from './share-dialog/share-dialog.component';
+import { DummyComponentsModule } from 'src/app/components/dummy-components.module';
+import { ResultsComponent } from './results/results.component';
 
 const routes: Routes = [
     {
@@ -16,7 +19,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [GameComponent],
+    declarations: [GameComponent, ShareDialogComponent, ResultsComponent],
     imports: [
         CommonModule,
         TranslateModule,
@@ -24,7 +27,8 @@ const routes: Routes = [
         ReactiveFormsModule,
         OperationModule,
         RouterModule.forChild(routes),
-        WatchComponent,
+        DummyComponentsModule,
+        MatDialogModule,
     ],
 })
 export class GameModule {}

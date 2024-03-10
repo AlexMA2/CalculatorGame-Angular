@@ -1,18 +1,7 @@
 {
-    "username": {
-        "write": "Write an username",
-        "label": "Username",
-        "validate": "Username must be at least 3 characters long"
-    },
-    "start": {
-        "label": "Quick Start",
-        "counter": "Starting in "
-    },
-    "instructions": {
-        "label": "Instructions"
-    },
-    "ranking": {
-        "label": "Ranking"
+    "answer": {
+        "correct": "Correct answer",
+        "user": "Your answer"
     },
     "back": {
         "label": "Back"
@@ -20,35 +9,64 @@
     "backspace": {
         "label": "Backspace"
     },
-    "send": {
-        "label": "Send"
-    },
-    "score": {
-        "label": "Your score"
-    },
-    "points": {
-        "label": "Points"
-    },
-    "operation": {
-        "label": "Operation"
-    },
-    "solved": {
-        "label": "Solved"
-    },
     "correct": {
         "label": "Correct"
+    },
+    "game": {
+        "label": "Game"
     },
     "incorrect": {
         "label": "Incorrect"
     },
-    "answer": {
-        "correct": "Correct answer",
-        "user": "Your answer"
+    "instructions": {
+        "label": "Instructions"
+    },
+    "operation": {
+        "label": "Operation"
     },
     "play_again": {
         "label": "Play again"
     },
+    "points": {
+        "label": "Points"
+    },
+    "ranking": {
+        "label": "Ranking"
+    },
+    "score": {
+        "label": "Your score"
+    },
+    "send": {
+        "label": "Send"
+    },
     "share": {
         "label": "Share"
+    },
+    "social_media": {
+        "facebook": "Share on Facebook",
+        "label": "Share your score on social media",
+        "twitter": "Share on Twitter",
+        "whatsapp": "Share on WhatsApp"
+    },
+    "solved": {
+        "label": "Solved"
+    },
+    "start": {
+        "counter": "Starting in ",
+        "label": "Quick Start"
+    },
+    "tournament": {
+        "label": "Tournament"
+    },
+    "username": {
+        "label": "Username",
+        "validate": "Username must be at least 3 characters long",
+        "write": "Write an username"
+    },
+    "random_name": {
+        "label": "Random name"
+    },
+    "soon": {
+        "label": "Coming soon"
     }
 }
