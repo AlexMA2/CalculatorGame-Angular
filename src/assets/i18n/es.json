@@ -67,9 +67,38 @@
         "label": "Nombre aleatorio"
     },
     "settings": {
-        "label": "Configuración"
+        "label": "Ajustes"
     },
     "language": {
-        "selector": "Selector de idioma"
+        "selector": "Selector de Idioma"
+    },
+    "operators": {
+        "addition": "Suma",
+        "division": "División",
+        "multiplication": "Multiplicación",
+        "subtraction": "Resta"
+    },
+    "enabled": {
+        "label": "Habilitado"
+    },
+    "num_range": {
+        "label": "Números Mínimos y Máximos"
+    },
+    "cancel": {
+        "label": "Cancelar"
+    },
+    "save": {
+        "label": "Guardar"
+    },
+    "times": {
+        "label": "Velocidad del Tiempo",
+        "slow": "Lento",
+        "medium": "Medio",
+        "fast": "Rápido"
+    },
+    "sound": {
+        "label": "Sonido",
+        "muted": "Silenciado",
+        "unmuted": "Activado"
     }
 }

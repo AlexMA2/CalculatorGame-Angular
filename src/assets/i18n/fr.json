@@ -73,6 +73,35 @@
         "label": "Paramètres"
     },
     "language": {
-        "selector": "Sélecteur de langue"
+        "selector": "Sélecteur de Langue"
+    },
+    "operators": {
+        "addition": "Addition",
+        "division": "Division",
+        "multiplication": "Multiplication",
+        "subtraction": "Soustraction"
+    },
+    "enabled": {
+        "label": "Activé"
+    },
+    "num_range": {
+        "label": "Nombres Min et Max"
+    },
+    "cancel": {
+        "label": "Annuler"
+    },
+    "save": {
+        "label": "Enregistrer"
+    },
+    "times": {
+        "label": "Vitesse du Temps",
+        "slow": "Lent",
+        "medium": "Moyen",
+        "fast": "Rapide"
+    },
+    "sound": {
+        "label": "Son",
+        "muted": "Muet",
+        "unmuted": "Activé"
     }
 }

@@ -74,5 +74,34 @@
     },
     "language": {
         "selector": "Language selector"
+    },
+    "operators": {
+        "addition": "Addition",
+        "division": "Division",
+        "multiplication": "Multiplication",
+        "subtraction": "Subtraction"
+    },
+    "enabled": {
+        "label": "Enabled"
+    },
+    "num_range": {
+        "label": "Min and max numbers"
+    },
+    "cancel": {
+        "label": "Cancel"
+    },
+    "save": {
+        "label": "Save"
+    },
+    "times": {
+        "label": "Time speed",
+        "slow": "Slow",
+        "medium": "Medium",
+        "fast": "Fast"
+    },
+    "sound": {
+        "label": "Sound",
+        "muted": "Muted",
+        "unmuted": "Unmuted"
     }
 }

@@ -74,5 +74,34 @@
     },
     "language": {
         "selector": "Seletor de idioma"
+    },
+    "operators": {
+        "addition": "Adição",
+        "division": "Divisão",
+        "multiplication": "Multiplicação",
+        "subtraction": "Subtração"
+    },
+    "enabled": {
+        "label": "Habilitado"
+    },
+    "num_range": {
+        "label": "Números Mínimos e Máximos"
+    },
+    "cancel": {
+        "label": "Cancelar"
+    },
+    "save": {
+        "label": "Salvar"
+    },
+    "times": {
+        "label": "Velocidade do Tempo",
+        "slow": "Lento",
+        "medium": "Médio",
+        "fast": "Rápido"
+    },
+    "sound": {
+        "label": "Som",
+        "muted": "Silenciado",
+        "unmuted": "Ativado"
     }
 }

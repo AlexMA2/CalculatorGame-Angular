@@ -1,7 +1,11 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { saveLocalStorageData } from 'src/app/shared/utils/localStorage';
+import { Settings } from 'src/app/shared/models/settings.model';
+import {
+    readLocalStorageData,
+    saveLocalStorageData,
+} from 'src/app/shared/utils/localStorage';
 
 enum Times {
     Slow = 90,
@@ -13,7 +17,7 @@ enum Times {
     selector: 'app-settings',
     templateUrl: './settings.component.html',
 })
-export class SettingsComponent {
+export class SettingsComponent implements OnInit {
     private readonly LS_KEY = 'settings';
 
     formGroup: FormGroup;
@@ -24,39 +28,78 @@ export class SettingsComponent {
         formBuilder: FormBuilder
     ) {
         this.formGroup = formBuilder.group({
-            theme: [localStorage.getItem(this.LS_KEY) || 'light'],
+            theme: ['light'],
             times: [Times.Medium],
             addOperator: formBuilder.group({
                 enabled: [true],
-                min: [0],
-                max: [10],
+                min: [1],
+                max: [200],
             }),
             subtractOperator: formBuilder.group({
                 enabled: [true],
-                min: [0],
-                max: [10],
+                min: [1],
+                max: [200],
             }),
             multiplyOperator: formBuilder.group({
-                enabled: [false],
-                min: [0],
-                max: [10],
+                enabled: [true],
+                min: [1],
+                max: [30],
             }),
-            divideOperator: formBuilder.group({
-                enabled: [false],
-                min: [0],
-                max: [10],
+            divisionOperator: formBuilder.group({
+                enabled: [true],
+                min: [1],
+                max: [30],
             }),
             sound: [true],
         });
     }
 
-    saveSettings(formGroup: FormGroup) {
-        saveLocalStorageData(this.LS_KEY, formGroup.value);
+    ngOnInit(): void {
+        this.subscribeToEnableChanges();
 
-        console.log(
-            '🚀 ~ SettingsComponent ~ saveSettings ~ formGroup.value:',
-            formGroup.value
-        );
+        const settings = readLocalStorageData(this.LS_KEY);
+        console.log('🚀 ~ SettingsComponent ~ ngOnInit ~ settings:', settings);
+        if (!settings) return;
+
+        this.formGroup.patchValue(settings);
+    }
+
+    subscribeToEnableChanges() {
+        this.subscribeToOperatorChanges('addOperator', this.formGroup);
+        this.subscribeToOperatorChanges('subtractOperator', this.formGroup);
+        this.subscribeToOperatorChanges('multiplyOperator', this.formGroup);
+        this.subscribeToOperatorChanges('divisionOperator', this.formGroup);
+    }
+
+    toggleSound(value: boolean) {
+        console.log('🚀 ~ SettingsComponent ~ toggleSound ~ value:', value);
+        this.formGroup.get('sound')?.setValue(value);
+    }
+
+    private subscribeToOperatorChanges(
+        operatorName: string,
+        formGroup: FormGroup
+    ) {
+        formGroup
+            .get(`${operatorName}.enabled`)
+            ?.valueChanges.subscribe((enabled) => {
+                const operator = formGroup.get(operatorName);
+                if (enabled) {
+                    operator?.get('min')?.enable();
+                    operator?.get('max')?.enable();
+                } else {
+                    operator?.get('min')?.disable();
+                    operator?.get('max')?.disable();
+                }
+            });
+    }
+
+    saveSettings(formGroup: FormGroup) {
+        saveLocalStorageData(this.LS_KEY, formGroup.getRawValue());
+        this.dialogRef.close();
+    }
+
+    cancel() {
         this.dialogRef.close();
     }
 }
