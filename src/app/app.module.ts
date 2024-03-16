@@ -25,7 +25,7 @@ export function HttpLoaderFactory(http: HttpClient) {
                 useFactory: HttpLoaderFactory,
                 deps: [HttpClient],
             },
-            defaultLanguage: 'en',
+            defaultLanguage: localStorage.getItem('language') || 'en',
             useDefaultLang: true,
         }),
         DummyComponentsModule,

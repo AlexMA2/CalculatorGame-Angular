@@ -31,7 +31,7 @@
         "label": "Puntos"
     },
     "ranking": {
-        "label": "Clasificación"
+        "label": "Tus puntuaciones"
     },
     "score": {
         "label": "Tu puntaje"
@@ -66,7 +66,10 @@
     "random_name": {
         "label": "Nombre aleatorio"
     },
-    "soon": {
-        "label": "Proximamente"
+    "settings": {
+        "label": "Configuración"
+    },
+    "language": {
+        "selector": "Selector de idioma"
     }
 }

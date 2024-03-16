@@ -31,7 +31,7 @@
         "label": "Points"
     },
     "ranking": {
-        "label": "Classement"
+        "label": "Vos scores"
     },
     "score": {
         "label": "Votre score"
@@ -68,5 +68,11 @@
     },
     "soon": {
         "label": "Bientôt"
+    },
+    "settings": {
+        "label": "Paramètres"
+    },
+    "language": {
+        "selector": "Sélecteur de langue"
     }
 }

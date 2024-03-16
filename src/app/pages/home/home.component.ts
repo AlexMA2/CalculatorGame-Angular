@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subject, filter, fromEvent, takeUntil } from 'rxjs';
+import { SettingsComponent } from './settings/settings.component';
 
 @Component({
     selector: 'app-home',
@@ -10,7 +12,7 @@ import { Subject, filter, fromEvent, takeUntil } from 'rxjs';
 })
 export class HomeComponent implements OnInit, OnDestroy {
     ngUnsubscribe = new Subject<void>();
-    constructor(private router: Router) {}
+    constructor(private router: Router, private matDialog: MatDialog) {}
 
     ngOnInit(): void {
         fromEvent<KeyboardEvent>(document, 'keydown')
@@ -69,6 +71,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
 
         this.nickControl.setValue(word);
+    }
+
+    openDialogToViewSettings(): void {
+        this.matDialog.open(SettingsComponent, {
+            width: '100%',
+            maxWidth: '600px',
+        });
     }
 
     ngOnDestroy(): void {

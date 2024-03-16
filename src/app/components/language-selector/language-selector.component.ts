@@ -11,11 +11,13 @@ interface Language {
     templateUrl: './language-selector.component.html',
 })
 export class LanguageSelectorComponent implements OnInit {
+    private readonly LS_KEY = 'language';
+
     languages: Language[] = [
-        { code: 'en', label: 'languages.english' },
-        { code: 'es', label: 'languages.spanish' },
-        { code: 'fr', label: 'languages.french' },
-        { code: 'pt', label: 'languages.portugues' },
+        { code: 'en', label: 'English' },
+        { code: 'es', label: 'Español' },
+        { code: 'fr', label: 'Français' },
+        { code: 'pt', label: 'Português' },
     ];
 
     selected = 'en';
@@ -23,12 +25,13 @@ export class LanguageSelectorComponent implements OnInit {
     constructor(private translateService: TranslateService) {}
 
     ngOnInit(): void {
-        this.selected = this.translateService.currentLang || 'en';
+        this.selected = localStorage.getItem(this.LS_KEY) || 'en';
     }
 
     onLanguageChange(language: Language): void {
         this.selected = language.code;
-
         this.translateService.use(language.code);
+
+        localStorage.setItem(this.LS_KEY, language.code);
     }
 }
