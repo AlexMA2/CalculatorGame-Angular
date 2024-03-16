@@ -25,7 +25,7 @@
         >
     </div>
     <div
-        *ngIf="counter >= 0 && !finished"
+        *ngIf="counterToStartGame >= 0 && !finished"
         class="flex justify-center gap-8 items-center"
     >
         <p class="font-bold text-center text-9xl">
@@ -37,16 +37,21 @@
             <p
                 class="text-primary-900 font-bold text-center text-9xl animate-growShrink"
             >
-                {{ counter }}
+                {{ counterToStartGame }}
             </p>
         </div>
     </div>
 
     <div
-        *ngIf="counter < 0 && !finished"
+        *ngIf="counterToStartGame < 0 && !finished"
         class="flex flex-col justify-center items-center p-4 h-full"
     >
-        <app-watch [counter]="60" (finished)="onFinishTimer()"> </app-watch>
+        <app-watch
+            [counterTime]="settings.times"
+            [enabledSound]="settings.sound"
+            (finished)="onFinishTimer()"
+        >
+        </app-watch>
 
         <div
             class="flex flex-row gap-2 items-center justify-between w-full mt-4 mb-2"

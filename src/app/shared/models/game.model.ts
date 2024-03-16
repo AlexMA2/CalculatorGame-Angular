@@ -3,3 +3,10 @@ export interface GameResult {
     incorrect: number;
     score: number;
 }
+
+export enum Operators {
+    Add = '+',
+    Subtract = '-',
+    Multiply = '*',
+    Division = '/',
+}

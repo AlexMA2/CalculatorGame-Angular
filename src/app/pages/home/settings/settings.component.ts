@@ -6,6 +6,7 @@ import {
     readLocalStorageData,
     saveLocalStorageData,
 } from 'src/app/shared/utils/localStorage';
+import { SettingsService } from './settings.service';
 
 enum Times {
     Slow = 90,
@@ -18,14 +19,13 @@ enum Times {
     templateUrl: './settings.component.html',
 })
 export class SettingsComponent implements OnInit {
-    private readonly LS_KEY = 'settings';
-
     formGroup: FormGroup;
 
     constructor(
         public dialogRef: MatDialogRef<SettingsComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        formBuilder: FormBuilder
+        formBuilder: FormBuilder,
+        private settingsService: SettingsService
     ) {
         this.formGroup = formBuilder.group({
             theme: ['light'],
@@ -57,9 +57,7 @@ export class SettingsComponent implements OnInit {
     ngOnInit(): void {
         this.subscribeToEnableChanges();
 
-        const settings = readLocalStorageData(this.LS_KEY);
-        console.log('🚀 ~ SettingsComponent ~ ngOnInit ~ settings:', settings);
-        if (!settings) return;
+        const settings = this.settingsService.settings;
 
         this.formGroup.patchValue(settings);
     }
@@ -72,7 +70,6 @@ export class SettingsComponent implements OnInit {
     }
 
     toggleSound(value: boolean) {
-        console.log('🚀 ~ SettingsComponent ~ toggleSound ~ value:', value);
         this.formGroup.get('sound')?.setValue(value);
     }
 
@@ -95,7 +92,7 @@ export class SettingsComponent implements OnInit {
     }
 
     saveSettings(formGroup: FormGroup) {
-        saveLocalStorageData(this.LS_KEY, formGroup.getRawValue());
+        this.settingsService.settings = formGroup.getRawValue() as Settings;
         this.dialogRef.close();
     }
 

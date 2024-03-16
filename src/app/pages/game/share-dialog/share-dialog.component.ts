@@ -24,7 +24,5 @@ export class ShareDialogComponent {
     constructor(
         public dialogRef: MatDialogRef<ShareDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any
-    ) {
-        console.log('ShareDialogComponent');
-    }
+    ) {}
 }

@@ -97,6 +97,8 @@ module.exports = {
         animation: {
             growShrink: "growShrink 1s ease-in-out infinite",
             tick: "tick 60s linear infinite",
+            "slow-tick": "tick 90s linear infinite",
+            "fast-tick": "tick 30s linear infinite",
         },
     },
     plugins: [

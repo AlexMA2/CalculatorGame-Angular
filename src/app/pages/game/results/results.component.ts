@@ -13,10 +13,6 @@ export class ResultsComponent {
     @Output() playAgain = new EventEmitter<void>();
     @Output() share = new EventEmitter<void>();
 
-    constructor() {
-        console.log('ResultsComponent');
-    }
-
     onPlayAgain(): void {
         this.playAgain.emit();
     }

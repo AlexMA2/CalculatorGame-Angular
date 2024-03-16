@@ -4,8 +4,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { filter, fromEvent, Subject, takeUntil } from 'rxjs';
 import { Operation } from 'src/app/pipes/operation/operation.model';
 import { ShareDialogComponent } from './share-dialog/share-dialog.component';
-import { GameResult } from 'src/app/shared/models/game.model';
+import { GameResult, Operators } from 'src/app/shared/models/game.model';
 import { Router } from '@angular/router';
+import { Settings } from 'src/app/shared/models/settings.model';
+import { readLocalStorageData } from 'src/app/shared/utils/localStorage';
+import { SettingsService } from '../home/settings/settings.service';
+import { randomNumber } from 'src/app/shared/utils/random';
 
 @Component({
     selector: 'app-game',
@@ -14,7 +18,8 @@ import { Router } from '@angular/router';
 export class GameComponent implements OnInit, OnDestroy {
     interval!: ReturnType<typeof setInterval>;
 
-    counter = 5;
+    counterToStartGame = 5;
+
     ngUnsubscribe = new Subject<void>();
     textField = new FormControl('');
 
@@ -33,7 +38,7 @@ export class GameComponent implements OnInit, OnDestroy {
         'send.label',
     ];
 
-    operators = ['+', '-', '*', '/'];
+    operators: Operators[];
     operations: Operation[] = [];
     operation!: Operation;
 
@@ -47,48 +52,78 @@ export class GameComponent implements OnInit, OnDestroy {
         score: 0,
     };
 
-    constructor(private matDialog: MatDialog, private router: Router) {}
+    settings: Settings;
+
+    constructor(
+        private matDialog: MatDialog,
+        private settingsService: SettingsService
+    ) {
+        this.settings = this.settingsService.settings;
+
+        const operators = [];
+        if (this.settings.addOperator.enabled) {
+            operators.push(Operators.Add);
+        }
+        if (this.settings.subtractOperator.enabled) {
+            operators.push(Operators.Subtract);
+        }
+        if (this.settings.multiplyOperator.enabled) {
+            operators.push(Operators.Multiply);
+        }
+        if (this.settings.divisionOperator.enabled) {
+            operators.push(Operators.Division);
+        }
+
+        this.operators = operators;
+    }
 
     ngOnInit(): void {
         this.startGame();
     }
 
+    /**
+     * Start the game and set the interval to 1 second
+     */
     startGame(): void {
         this.textField.setValue('');
-
         this.createOperations();
+
         this.interval = setInterval(() => {
-            this.counter--;
-            if (this.counter === -1) {
-                clearInterval(this.interval);
-                this.onFinishTimer();
-                fromEvent<KeyboardEvent>(document, 'keydown')
-                    .pipe(
-                        takeUntil(this.ngUnsubscribe),
-                        filter((event) =>
-                            [
-                                '0',
-                                '1',
-                                '2',
-                                '3',
-                                '4',
-                                '5',
-                                '6',
-                                '7',
-                                '8',
-                                '9',
-                                'Enter',
-                                'Backspace',
-                            ].includes(event.key)
-                        )
+            this.counterToStartGame--;
+            if (this.counterToStartGame > -1) return;
+
+            fromEvent<KeyboardEvent>(document, 'keydown')
+                .pipe(
+                    takeUntil(this.ngUnsubscribe),
+                    filter((event) =>
+                        [
+                            '0',
+                            '1',
+                            '2',
+                            '3',
+                            '4',
+                            '5',
+                            '6',
+                            '7',
+                            '8',
+                            '9',
+                            'Enter',
+                            'Backspace',
+                        ].includes(event.key)
                     )
-                    .subscribe((event) => {
-                        this.handleKeyDown(event);
-                    });
-            }
+                )
+                .subscribe((event) => {
+                    this.handleKeyDown(event);
+                });
+
+            clearInterval(this.interval);
         }, 1000);
     }
 
+    /**
+     * Handle the button click event if it's a number, backspace or enter.
+     * @param button : string - The button label clicked. It can be a number, backspace or send
+     */
     onButtonClick(button: string): void {
         switch (button) {
             case 'backspace.label':
@@ -97,9 +132,7 @@ export class GameComponent implements OnInit, OnDestroy {
                 }
                 break;
             case 'send.label':
-                if (!this.textField.value) {
-                    return;
-                }
+                if (!this.textField.value) return;
 
                 this.operations[this.operationsSolved].userResult = Number(
                     this.textField.value
@@ -121,30 +154,41 @@ export class GameComponent implements OnInit, OnDestroy {
         }
     }
 
-    createOperations(): void {
+    /**
+     * Create 50 operations with random numbers and operators
+     */
+    private createOperations(): void {
         for (let i = 0; i < 50; i++) {
             const index = Math.floor(Math.random() * this.operators.length);
             let firstNumber = 0;
             let secondNumber = 0;
 
-            if (this.operators[index] === '+') {
-                firstNumber = Math.floor(Math.random() * 201);
-                secondNumber = Math.floor(Math.random() * 201);
+            if (this.operators[index] === Operators.Add) {
+                const { min, max } = this.settings.addOperator;
+                firstNumber = randomNumber(min, max);
+                secondNumber = randomNumber(min, max);
             }
 
-            if (this.operators[index] === '-') {
-                firstNumber = Math.floor(Math.random() * 201);
-                secondNumber = Math.floor(Math.random() * firstNumber);
+            if (this.operators[index] === Operators.Subtract) {
+                const { min, max } = this.settings.subtractOperator;
+                firstNumber = randomNumber(min, max);
+                secondNumber = randomNumber(min, max);
             }
 
-            if (this.operators[index] === '*') {
-                firstNumber = Math.floor(Math.random() * 30 + 1);
-                secondNumber = Math.floor(Math.random() * 30 + 1);
+            if (this.operators[index] === Operators.Multiply) {
+                const { min, max } = this.settings.multiplyOperator;
+                firstNumber = randomNumber(min, max);
+                secondNumber = randomNumber(min, max);
             }
 
-            if (this.operators[index] === '/') {
-                let quotient = Math.floor(Math.random() * 30 + 1);
-                let divisor = Math.floor(Math.random() * 30 + 1);
+            if (this.operators[index] === Operators.Division) {
+                const { min, max } = this.settings.divisionOperator;
+
+                let divisor = randomNumber(min, max);
+                let quotient = randomNumber(
+                    Math.ceil(min / divisor),
+                    Math.ceil(max / divisor)
+                );
 
                 firstNumber = quotient * divisor;
                 secondNumber = divisor;
@@ -163,6 +207,10 @@ export class GameComponent implements OnInit, OnDestroy {
         this.operation = this.operations[0];
     }
 
+    /**
+     * Handle the keyboard events like Enter, Backspace and numbers
+     * @param event KeyboardEvent
+     */
     handleKeyDown(event: KeyboardEvent): void {
         if (event.key === 'Enter') {
             this.onButtonClick('send.label');
@@ -181,6 +229,9 @@ export class GameComponent implements OnInit, OnDestroy {
         }
     }
 
+    /**
+     * Finish the game and calculate the score
+     */
     onFinishTimer(): void {
         this.finished = true;
         this.operations = this.operations.slice(0, this.operationsSolved);
@@ -198,8 +249,11 @@ export class GameComponent implements OnInit, OnDestroy {
             Math.floor(this.result.incorrect * 1.5);
     }
 
+    /**
+     * Returns every value to the initial state
+     */
     onPlayAgain(): void {
-        this.counter = 5;
+        this.counterToStartGame = 5;
         this.operationsSolved = 0;
         this.finished = false;
         this.result = {
@@ -207,13 +261,15 @@ export class GameComponent implements OnInit, OnDestroy {
             incorrect: 0,
             score: 0,
         };
+
         this.operations = [];
-
         this.textField.reset();
-
         this.startGame();
     }
 
+    /**
+     * Open the share dialog
+     */
     onShare(): void {
         this.matDialog
             .open(ShareDialogComponent, {

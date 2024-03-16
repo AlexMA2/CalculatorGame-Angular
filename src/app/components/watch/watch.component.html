@@ -1,4 +1,11 @@
-<div class="watch relative after:animate-tick">
+<div
+    class="watch relative"
+    [ngClass]="{
+        'after:animate-slow-tick': counterTime === 'slow',
+        ' after:animate-tick': counterTime === 'medium',
+        ' after:animate-fast-tick': counterTime === 'fast'
+    }"
+>
     <p
         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 text-3xl"
     >
