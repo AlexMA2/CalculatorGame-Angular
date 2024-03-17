@@ -54,7 +54,7 @@
                     [ngClass]="{
                         'bg-opacity-50 cursor-not-allowed': nickControl.invalid,
                     }"
-                    [routerLink]="nickControl.invalid ? '' : ['/game']"
+                    (click)="saveNick()"
                     >{{ "start.label" | translate }}</a
                 >
             </button>
