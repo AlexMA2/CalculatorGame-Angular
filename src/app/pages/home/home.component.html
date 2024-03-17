@@ -6,7 +6,6 @@
     <h1 class="text-8xl text-center font-bold py-4 text-primary-600">
         The Calculator Game
     </h1>
-
     <div class="flex flex-col h-full gap-2">
         <div class="flex flex-col gap-1 relative">
             <label class="text-2xl text-primary-600" for="name" id="nick-label">
@@ -20,7 +19,6 @@
                 [placeholder]="'username.write' | translate"
             />
             <button
-                matRipple
                 [matTooltip]="'random_name.label' | translate"
                 class="absolute top-[47px] right-2 rounded-full p-2"
                 (click)="generateRandomName()"
@@ -56,7 +54,7 @@
                     [ngClass]="{
                         'bg-opacity-50 cursor-not-allowed': nickControl.invalid,
                     }"
-                    (click)="saveNick()"
+                    [routerLink]="nickControl.invalid ? '' : ['/game']"
                     >{{ "start.label" | translate }}</a
                 >
             </button>

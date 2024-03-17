@@ -1,0 +1,60 @@
+@use "@angular/material" as mat;
+@include mat.core();
+
+$primary-palette: (
+    50: #fcf4e5,
+    100: #fbefd9,
+    200: #f5dcb3,
+    300: #efc582,
+    400: #e7a350,
+    500: #e2882d,
+    600: #d37023,
+    700: #af571f,
+    800: #8c4520,
+    900: #713a1d,
+    950: #3d1d0d
+);
+
+$secondary-palette: (
+    50: #fffaeb,
+    100: #fef0c7,
+    200: #fde08a,
+    300: #fdd163,
+    400: #fcb423,
+    500: #f6920a,
+    600: #da6c05,
+    700: #b54a08,
+    800: #93390d,
+    900: #78300f,
+    950: #451703
+);
+
+$viking-palette: (
+    50: #f0fbfb,
+    100: #d8f3f5,
+    200: #b5e7ec,
+    300: #82d4de,
+    400: #60c2cf,
+    500: #2d9dad,
+    600: #288092,
+    700: #266778,
+    800: #275663,
+    900: #244855,
+    950: #132f39
+);
+
+$my-primary: mat.define-palette(mat.$amber-palette, 700);
+$my-accent: mat.define-palette(mat.$cyan-palette, 700);
+$my-warn: mat.define-palette(mat.$red-palette);
+
+$custom-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: $my-primary,
+            accent: $my-accent,
+            warn: $my-warn
+        )
+    )
+);
+
+@include mat.all-component-themes($custom-theme);
