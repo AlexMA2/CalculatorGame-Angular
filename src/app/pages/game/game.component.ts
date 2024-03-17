@@ -254,22 +254,4 @@ export class GameComponent implements OnInit, OnDestroy {
         this.ngUnsubscribe.next();
         clearInterval(this.interval);
     }
-
-    private fakeFinish(): void {
-        this.operationsSolved = 20;
-
-        this.operations.forEach((operation) => {
-            const x = Math.floor(Math.random() * 2);
-
-            if (x === 0) {
-                operation.userResult = operation.result;
-            }
-
-            if (x === 1) {
-                operation.userResult = Math.floor(Math.random() * 100);
-            }
-        });
-
-        this.onFinishTimer();
-    }
 }
