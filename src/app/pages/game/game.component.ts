@@ -1,15 +1,12 @@
-import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { filter, fromEvent, Subject, takeUntil } from 'rxjs';
 import { Operation } from 'src/app/pipes/operation/operation.model';
-import { ShareDialogComponent } from './share-dialog/share-dialog.component';
-import { GameResult, Operators } from 'src/app/shared/models/game.model';
-import { Router } from '@angular/router';
+import { Operators } from 'src/app/shared/models/game.model';
 import { Settings } from 'src/app/shared/models/settings.model';
-import { readLocalStorageData } from 'src/app/shared/utils/localStorage';
-import { SettingsService } from '../home/settings/settings.service';
 import { randomNumber } from 'src/app/shared/utils/random';
+
+import { SettingsService } from '../home/settings/settings.service';
 
 @Component({
     selector: 'app-game',
@@ -18,7 +15,7 @@ import { randomNumber } from 'src/app/shared/utils/random';
 export class GameComponent implements OnInit, OnDestroy {
     interval!: ReturnType<typeof setInterval>;
 
-    counterToStartGame = 5;
+    counterToStartGame = 1;
 
     ngUnsubscribe = new Subject<void>();
     textField = new FormControl('');
@@ -46,18 +43,11 @@ export class GameComponent implements OnInit, OnDestroy {
 
     finished = false;
 
-    result: GameResult = {
-        correct: 0,
-        incorrect: 0,
-        score: 0,
-    };
-
     settings: Settings;
 
-    constructor(
-        private matDialog: MatDialog,
-        private settingsService: SettingsService
-    ) {
+    solvedTimestamps: number[] = [];
+
+    constructor(private settingsService: SettingsService) {
         this.settings = this.settingsService.settings;
 
         const operators = [];
@@ -91,6 +81,7 @@ export class GameComponent implements OnInit, OnDestroy {
         this.interval = setInterval(() => {
             this.counterToStartGame--;
             if (this.counterToStartGame > -1) return;
+            this.solvedTimestamps.push(Date.now());
 
             fromEvent<KeyboardEvent>(document, 'keydown')
                 .pipe(
@@ -133,7 +124,7 @@ export class GameComponent implements OnInit, OnDestroy {
                 break;
             case 'send.label':
                 if (!this.textField.value) return;
-
+                this.solvedTimestamps.push(Date.now());
                 this.operations[this.operationsSolved].userResult = Number(
                     this.textField.value
                 );
@@ -172,7 +163,7 @@ export class GameComponent implements OnInit, OnDestroy {
             if (this.operators[index] === Operators.Subtract) {
                 const { min, max } = this.settings.subtractOperator;
                 firstNumber = randomNumber(min, max);
-                secondNumber = randomNumber(min, max);
+                secondNumber = randomNumber(min, firstNumber);
             }
 
             if (this.operators[index] === Operators.Multiply) {
@@ -184,8 +175,8 @@ export class GameComponent implements OnInit, OnDestroy {
             if (this.operators[index] === Operators.Division) {
                 const { min, max } = this.settings.divisionOperator;
 
-                let divisor = randomNumber(min, max);
-                let quotient = randomNumber(
+                const divisor = randomNumber(min, max);
+                const quotient = randomNumber(
                     Math.ceil(min / divisor),
                     Math.ceil(max / divisor)
                 );
@@ -234,19 +225,16 @@ export class GameComponent implements OnInit, OnDestroy {
      */
     onFinishTimer(): void {
         this.finished = true;
-        this.operations = this.operations.slice(0, this.operationsSolved);
+        const operations = this.operations.slice(0, this.operationsSolved);
 
-        this.operations.forEach((operation) => {
-            if (operation.userResult === operation.result) {
-                this.result.correct++;
-            } else {
-                this.result.incorrect++;
-            }
+        operations.forEach((operation, index) => {
+            operation.userTime =
+                this.solvedTimestamps[index + 1] - this.solvedTimestamps[index];
         });
+
+        this.operations = operations;
+
         this.ngUnsubscribe.next();
-        this.result.score =
-            Math.floor(this.result.correct * 10) -
-            Math.floor(this.result.incorrect * 1.5);
     }
 
     /**
@@ -256,34 +244,32 @@ export class GameComponent implements OnInit, OnDestroy {
         this.counterToStartGame = 5;
         this.operationsSolved = 0;
         this.finished = false;
-        this.result = {
-            correct: 0,
-            incorrect: 0,
-            score: 0,
-        };
 
         this.operations = [];
         this.textField.reset();
         this.startGame();
     }
 
-    /**
-     * Open the share dialog
-     */
-    onShare(): void {
-        this.matDialog
-            .open(ShareDialogComponent, {
-                data: this.result,
-                maxWidth: '800px',
-                width: '100%',
-                panelClass: 'ax-dialog',
-            })
-            .afterClosed()
-            .subscribe(() => {});
-    }
-
     ngOnDestroy(): void {
         this.ngUnsubscribe.next();
         clearInterval(this.interval);
+    }
+
+    private fakeFinish(): void {
+        this.operationsSolved = 20;
+
+        this.operations.forEach((operation) => {
+            const x = Math.floor(Math.random() * 2);
+
+            if (x === 0) {
+                operation.userResult = operation.result;
+            }
+
+            if (x === 1) {
+                operation.userResult = Math.floor(Math.random() * 100);
+            }
+        });
+
+        this.onFinishTimer();
     }
 }

@@ -1,7 +1,8 @@
 {
     "answer": {
         "correct": "Correct answer",
-        "user": "Your answer"
+        "user": "Your answer",
+        "time": "Answer Time"
     },
     "back": {
         "label": "Back"
@@ -35,6 +36,9 @@
     },
     "score": {
         "label": "Your score"
+    },
+    "download": {
+        "label": "Download"
     },
     "send": {
         "label": "Send"

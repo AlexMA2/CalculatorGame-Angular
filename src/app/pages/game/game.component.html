@@ -88,11 +88,9 @@
 
     <ng-container *ngIf="finished">
         <ax-results
-            [result]="result"
             [operationsSolved]="operationsSolved"
             [operations]="operations"
             (playAgain)="onPlayAgain()"
-            (share)="onShare()"
         ></ax-results>
     </ng-container>
 </main>

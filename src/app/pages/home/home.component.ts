@@ -11,10 +11,20 @@ import { SettingsComponent } from './settings/settings.component';
     encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent implements OnInit, OnDestroy {
+    private readonly LS_KEY = 'nick';
+
     ngUnsubscribe = new Subject<void>();
+    nickControl = new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+    ]);
+
     constructor(private router: Router, private matDialog: MatDialog) {}
 
     ngOnInit(): void {
+        const nick = localStorage.getItem(this.LS_KEY);
+        if (nick) this.nickControl.setValue(nick);
+
         fromEvent<KeyboardEvent>(document, 'keydown')
             .pipe(
                 takeUntil(this.ngUnsubscribe),
@@ -22,15 +32,15 @@ export class HomeComponent implements OnInit, OnDestroy {
             )
             .subscribe(() => {
                 if (this.nickControl.valid) {
-                    this.router.navigate(['/game']);
+                    this.saveNick();
                 }
             });
     }
 
-    nickControl = new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-    ]);
+    ngOnDestroy(): void {
+        this.ngUnsubscribe.next();
+        this.ngUnsubscribe.complete();
+    }
 
     generateRandomName(): void {
         const amountLetters = Math.random() * 5 + 3;
@@ -80,8 +90,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnDestroy(): void {
-        this.ngUnsubscribe.next();
-        this.ngUnsubscribe.complete();
+    saveNick(): void {
+        if (!this.nickControl.value) return;
+        localStorage.setItem(this.LS_KEY, this.nickControl.value);
+        this.router.navigate(['/game']);
     }
 }

@@ -1,7 +1,8 @@
 {
     "answer": {
         "correct": "Respuesta correcta",
-        "user": "Tu respuesta"
+        "user": "Tu respuesta",
+        "time": "Tiempo de Respuesta"
     },
     "back": {
         "label": "Volver"
@@ -39,8 +40,8 @@
     "send": {
         "label": "Enviar"
     },
-    "share": {
-        "label": "Compartir"
+    "download": {
+        "label": "Descargar"
     },
     "social_media": {
         "facebook": "Compartir en Facebook",

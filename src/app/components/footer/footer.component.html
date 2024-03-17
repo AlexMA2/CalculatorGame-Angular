@@ -1,11 +1,11 @@
 <footer class="w-full fixed bottom-0 mb-4 flex items-center justify-center">
     <div
-        class="flex flex-row gap-4 items-center justify-around backdrop-blur-sm p-4 rounded-full"
+        class="flex flex-col sm:flex-row gap-4 items-center justify-around backdrop-blur-sm p-4 rounded-full"
     >
         <button
             [disabled]="true"
             class="rounded-lg min-h-14 text-center text-2xl cursor-pointer flex justify-center items-center bg-viking-400 flex-1 gap-2 px-4"
-            [matTooltip]="'tournament.label' | translate"
+            [matTooltip]="'soon.label' | translate"
             [ngClass]="{
 
                 'border-viking-500 border-[6px]': active === 'tournament',
@@ -63,7 +63,7 @@
         <button
             [disabled]="true"
             class="rounded-lg min-h-14 text-center text-2xl cursor-pointer flex justify-center items-center bg-tangerine-400 flex-1 gap-2 px-4 whitespace-nowrap"
-            [matTooltip]="'ranking.label' | translate"
+            [matTooltip]="'soon.label' | translate"
             [ngClass]="{
 
                 'border-tangerine-500 border-[6px]' : active === 'ranking',

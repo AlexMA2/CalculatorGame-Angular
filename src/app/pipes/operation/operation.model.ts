@@ -4,4 +4,5 @@ export interface Operation {
     operator: string;
     result: number;
     userResult?: number;
+    userTime?: number;
 }
