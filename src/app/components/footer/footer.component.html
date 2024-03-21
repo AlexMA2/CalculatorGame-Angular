@@ -1,6 +1,6 @@
 <footer class="w-full fixed bottom-0 mb-4 flex items-center justify-center">
     <div
-        class="flex flex-col sm:flex-row gap-4 items-center justify-around backdrop-blur-sm p-4 rounded-full"
+        class="flex flex-row flex-wrap gap-4 items-center justify-around p-4 rounded-full"
     >
         <button
             [disabled]="true"
@@ -24,7 +24,7 @@
                 />
             </svg>
 
-            <p class="text-sm">
+            <p class="hidden text-sm sm:inline-flex">
                 {{ "tournament.label" | translate }}
             </p>
         </button>
@@ -55,7 +55,7 @@
                 </g>
             </svg>
 
-            <p class="text-sm">
+            <p class="hidden text-sm sm:inline-flex">
                 {{ "game.label" | translate }}
             </p>
         </button>
@@ -82,7 +82,7 @@
                 />
             </svg>
 
-            <p class="text-sm">
+            <p class="hidden text-sm sm:inline-flex">
                 {{ "ranking.label" | translate }}
             </p>
         </button>

@@ -15,7 +15,7 @@ import { SettingsService } from '../home/settings/settings.service';
 export class GameComponent implements OnInit, OnDestroy {
     interval!: ReturnType<typeof setInterval>;
 
-    counterToStartGame = 1;
+    counterToStartGame = 5;
 
     ngUnsubscribe = new Subject<void>();
     textField = new FormControl('');

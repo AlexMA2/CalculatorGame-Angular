@@ -3,16 +3,19 @@
 <div
     class="flex flex-col bg-primary-100 justify-start items-center min-h-screen"
 >
-    <h1 class="text-8xl text-center font-bold py-4 text-primary-600">
+    <h1
+        class="text-4xl mt-4 md:text-8xl text-center font-bold py-4 text-primary-600"
+    >
         The Calculator Game
     </h1>
-    <div class="flex flex-col h-full gap-2">
+
+    <div class="flex flex-col h-full gap-2 w-full mx-2 px-2 max-w-128">
         <div class="flex flex-col gap-1 relative">
             <label class="text-2xl text-primary-600" for="name" id="nick-label">
                 {{ "username.label" | translate }}
             </label>
             <input
-                class="min-w-96 h-12 px-3 rounded-lg border-2 border-gray-200 outline-none focus:border-secondary-400"
+                class="h-12 px-3 rounded-lg border-2 border-gray-200 outline-none focus:border-secondary-400"
                 type="text"
                 name="nick"
                 [formControl]="nickControl"
@@ -44,7 +47,7 @@
                 "
                 matRipple
                 [disabled]="nickControl.invalid"
-                class="text-center text-primary-900 text-2xl bg-secondary-400 rounded-lg px-4 py-2 flex-1"
+                class="text-center text-primary-900 text-lg md:text-2xl bg-secondary-400 rounded-lg px-4 py-2 flex-1"
                 [ngClass]="{
                     'bg-opacity-50 cursor-not-allowed': nickControl.invalid,
                 }"
@@ -63,7 +66,7 @@
                 [matTooltip]="'settings.label' | translate"
                 (click)="openDialogToViewSettings()"
                 matRipple
-                class="text-center text-2xl bg-slate-700 rounded-lg px-4 py-2 text-slate-100"
+                class="text-center text-lg md:text-2xl bg-slate-700 rounded-lg px-4 py-2 text-slate-100"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
