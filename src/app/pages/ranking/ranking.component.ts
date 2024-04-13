@@ -17,7 +17,7 @@ export class RankingComponent implements AfterViewInit, OnInit {
         'time',
         'date',
     ];
-    dataSource = new MatTableDataSource<Game>();
+    dataSource = new MatTableDataSource<Game>([]);
 
     constructor(
         private graphQl: GraphqlService,
@@ -57,44 +57,46 @@ export class RankingComponent implements AfterViewInit, OnInit {
     }
 
     getRanking() {
-        this.graphQl.getGames().subscribe({
-            next: (result) => {
-                console.log(
-                    '🚀 ~ RankingComponent ~ this.graphQl.getGames ~ result:',
-                    result
-                );
-                const time = Intl.DateTimeFormat(
-                    localStorage.getItem('language') ?? 'en',
-                    {
-                        hour: 'numeric',
-                        minute: 'numeric',
-                        second: 'numeric',
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric',
-                    }
-                );
+        this.graphQl
+            .getGames({
+                direction: 'DESC',
+                field: 'puntuation',
+            })
+            .subscribe({
+                next: (result) => {
+                    const time = Intl.DateTimeFormat(
+                        localStorage.getItem('language') ?? 'en',
+                        {
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            second: 'numeric',
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric',
+                        }
+                    );
 
-                this.dataSource.data = result.data.games.map(
-                    (game: Game, index: number) => {
-                        return {
-                            position: index + 1,
-                            user: game.user,
-                            puntuation: game.puntuation,
-                            time: game.time,
-                            date: time.format(new Date(game.date)),
-                            noParsedDate: game.date,
-                        };
-                    }
-                );
-            },
-            error: (error) => {
-                console.log(
-                    '🚀 ~ RankingComponent ~ this.graphQl.getGames ~ error:',
-                    error
-                );
-            },
-        });
+                    this.dataSource.data = result.data.games.map(
+                        (game: Game, index: number) => {
+                            return {
+                                position: index + 1,
+                                user: game.user,
+                                puntuation: game.puntuation,
+                                time: game.time,
+                                date: time.format(new Date(game.date)),
+                                noParsedDate: game.date,
+                            };
+                        }
+                    );
+                    this.dataSource.sort = this.sort;
+                },
+                error: (error) => {
+                    console.log(
+                        '🚀 ~ RankingComponent ~ this.graphQl.getGames ~ error:',
+                        error
+                    );
+                },
+            });
     }
 
     announceSortChange(sortState: any) {

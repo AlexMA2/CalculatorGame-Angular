@@ -52,8 +52,8 @@ export class GraphqlService {
 
     getGames(order?: Order): Observable<ApolloQueryResult<any>> {
         const query = gql`
-            query Games {
-                games {
+            query Games($order: Order) {
+                games(order: $order) {
                     id
                     puntuation
                     time
@@ -77,7 +77,6 @@ export class GraphqlService {
                 },
             };
         }
-
         return this.apollo.watchQuery(body).valueChanges;
     }
 }

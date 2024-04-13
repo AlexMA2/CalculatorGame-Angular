@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { DummyComponentsModule } from 'src/app/components/dummy-components.module';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 const routes = [
     {
@@ -23,6 +24,7 @@ const routes = [
         FormsModule,
         DummyComponentsModule,
         MatTableModule,
+        MatSortModule,
     ],
 })
 export class RankingModule {}
