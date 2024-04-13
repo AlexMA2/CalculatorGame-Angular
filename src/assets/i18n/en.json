@@ -60,7 +60,14 @@
         "label": "Quick Start"
     },
     "tournament": {
-        "label": "Tournament"
+        "label": "Tournament",
+        "welcome": "Welcome to the tournaments page!",
+        "join": "Join",
+        "private": "Private tournament",
+        "public": "Public tournament",
+        "name": "Tournament name",
+        "max_players": "Max number of players",
+        "create": "Create a new tournament"
     },
     "username": {
         "label": "Username",

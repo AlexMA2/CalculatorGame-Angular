@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RankingComponent } from './ranking.component';
+import { NgModule } from '@angular/core';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { FormsModule } from '@angular/forms';
 import { DummyComponentsModule } from 'src/app/components/dummy-components.module';
-import { MatTableModule } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
+
+import { RankingComponent } from './ranking.component';
 
 const routes = [
     {
@@ -21,7 +21,6 @@ const routes = [
         CommonModule,
         RouterModule.forChild(routes),
         TranslateModule,
-        FormsModule,
         DummyComponentsModule,
         MatTableModule,
         MatSortModule,

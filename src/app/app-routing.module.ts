@@ -29,6 +29,14 @@ const routes: Routes = [
                 (m) => m.RankingModule
             ),
     },
+    {
+        path: 'tournament',
+        canActivate: [authGuard],
+        loadChildren: () =>
+            import('./pages/tournament/tournament.module').then(
+                (m) => m.TournamentModule
+            ),
+    },
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: '**', redirectTo: 'home' },
 ];

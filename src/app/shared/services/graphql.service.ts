@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApolloQueryResult } from '@apollo/client/core';
+import { ApolloQueryResult, FetchResult } from '@apollo/client/core';
 import { Apollo, gql } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { Order } from '../models/order.model';
@@ -78,5 +78,52 @@ export class GraphqlService {
             };
         }
         return this.apollo.watchQuery(body).valueChanges;
+    }
+
+    createTournament(
+        name: string,
+        maxPlayers: number,
+        password?: string
+    ): Observable<any> {
+        const mutation = gql`
+            mutation Mutation($createdTournamentInput: CreatedTournamentInput) {
+                createTournament(
+                    createdTournamentInput: $createdTournamentInput
+                ) {
+                    id
+                    maxPlayers
+                    name
+                    password
+                }
+            }
+        `;
+
+        return this.apollo.mutate({
+            mutation,
+            variables: {
+                createdTournamentInput: {
+                    name,
+                    maxPlayers,
+                    password: password ?? null,
+                },
+            },
+        });
+    }
+
+    subscribeToTournaments(): Observable<any> {
+        const subscription = gql`
+            subscription Subscription {
+                tournamentCreated {
+                    id
+                    name
+                    password
+                    maxPlayers
+                }
+            }
+        `;
+
+        return this.apollo.subscribe({
+            query: subscription,
+        });
     }
 }

@@ -21,3 +21,10 @@ export interface Game {
     };
     noParsedDate?: string;
 }
+
+export interface Tournament {
+    id: string;
+    name: string;
+    maxPlayers: number;
+    password?: string;
+}
