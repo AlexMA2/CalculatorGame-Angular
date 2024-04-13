@@ -1,0 +1,102 @@
+<ax-language-selector></ax-language-selector>
+
+<div
+    class="flex flex-col bg-primary-100 justify-start items-center min-h-screen"
+>
+    <div class="m-6 w-full max-w-256">
+        <table
+            class="m-6"
+            mat-table
+            [dataSource]="dataSource"
+            matSort
+            (matSortChange)="announceSortChange($event)"
+            class="mat-elevation-z8"
+        >
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+                <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    mat-sort-header
+                    sortActionDescription="Sort by number"
+                >
+                    No.
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.position }}
+                </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="user">
+                <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    mat-sort-header
+                    sortActionDescription="Sort by name"
+                >
+                    {{ "username.label" | translate }}
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.user.username }}
+                </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="puntuation">
+                <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    mat-sort-header
+                    sortActionDescription="Sort by weight"
+                >
+                    {{ "score.label" | translate }}
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.puntuation }}
+                </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="time">
+                <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    mat-sort-header
+                    sortActionDescription="Sort by symbol"
+                >
+                    {{ "times.label" | translate }}
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    <span *ngIf="element.time === 'SLOW'">
+                        {{ "times.slow" | translate }}
+                    </span>
+                    <span *ngIf="element.time === 'MEDIUM'">
+                        {{ "times.medium" | translate }}
+                    </span>
+                    <span *ngIf="element.time === 'FAST'">
+                        {{ "times.fast" | translate }}
+                    </span>
+                </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="date">
+                <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    mat-sort-header
+                    sortActionDescription="Sort by symbol"
+                >
+                    {{ "game_date.label" | translate }}
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.date }}
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+    </div>
+</div>

@@ -10,3 +10,14 @@ export enum Operators {
     Multiply = '*',
     Division = '/',
 }
+
+export interface Game {
+    id: string;
+    puntuation: number;
+    time: number;
+    date: string;
+    user: {
+        username: string;
+    };
+    noParsedDate?: string;
+}

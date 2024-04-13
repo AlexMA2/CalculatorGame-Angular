@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DummyComponentsModule } from './components/dummy-components.module';
+import { GraphQLModule } from './graphql.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -29,6 +30,7 @@ export function HttpLoaderFactory(http: HttpClient) {
             useDefaultLang: true,
         }),
         DummyComponentsModule,
+        GraphQLModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

@@ -101,5 +101,8 @@
         "label": "Sonido",
         "muted": "Silenciado",
         "unmuted": "Activado"
+    },
+    "game_date": {
+        "label": "Fecha de juego"
     }
 }

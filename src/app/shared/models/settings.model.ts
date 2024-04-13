@@ -1,6 +1,6 @@
 export interface Settings {
     theme: 'light' | 'dark';
-    times: 'slow' | 'medium' | 'fast';
+    times: Times;
     addOperator: OperatorSetting;
     subtractOperator: OperatorSetting;
     multiplyOperator: OperatorSetting;
@@ -12,4 +12,10 @@ export interface OperatorSetting {
     enabled: boolean;
     min: number;
     max: number;
+}
+
+export enum Times {
+    SLOW = 'slow',
+    MEDIUM = 'medium',
+    FAST = 'fast',
 }

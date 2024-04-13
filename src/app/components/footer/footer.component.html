@@ -6,6 +6,7 @@
             [disabled]="true"
             class="rounded-lg min-h-14 text-center text-2xl cursor-pointer flex justify-center items-center bg-viking-400 flex-1 gap-2 px-4"
             [matTooltip]="'soon.label' | translate"
+            (click)="goTo('tournament')"
             [ngClass]="{
 
                 'border-viking-500 border-[6px]': active === 'tournament',
@@ -32,6 +33,7 @@
         <button
             class="rounded-lg min-h-14 text-center text-2xl cursor-pointer flex justify-center items-center bg-secondary-400 flex-1 gap-2 px-4"
             [matTooltip]="'game.label' | translate"
+            (click)="goTo('game')"
             [ngClass]="{
 
                 'border-secondary-500 border-[6px]': active === 'game',
@@ -61,12 +63,12 @@
         </button>
 
         <button
-            [disabled]="true"
             class="rounded-lg min-h-14 text-center text-2xl cursor-pointer flex justify-center items-center bg-tangerine-400 flex-1 gap-2 px-4 whitespace-nowrap"
             [matTooltip]="'soon.label' | translate"
+            (click)="goTo('scores')"
             [ngClass]="{
 
-                'border-tangerine-500 border-[6px]' : active === 'ranking',
+                'border-tangerine-500 border-[6px]' : active === 'scores',
             }"
         >
             <svg

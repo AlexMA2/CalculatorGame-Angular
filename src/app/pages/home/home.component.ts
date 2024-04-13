@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subject, filter, fromEvent, takeUntil } from 'rxjs';
 import { SettingsComponent } from './settings/settings.component';
+import { GraphqlService } from 'src/app/shared/services/graphql.service';
 
 @Component({
     selector: 'app-home',
@@ -19,7 +20,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         Validators.minLength(3),
     ]);
 
-    constructor(private router: Router, private matDialog: MatDialog) {}
+    constructor(
+        private router: Router,
+        private matDialog: MatDialog,
+        private graphQl: GraphqlService
+    ) {}
 
     ngOnInit(): void {
         const nick = localStorage.getItem(this.LS_KEY);
@@ -94,5 +99,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (!this.nickControl.value) return;
         localStorage.setItem(this.LS_KEY, this.nickControl.value);
         this.router.navigate(['/game']);
+
+        this.graphQl.createUser(this.nickControl.value).subscribe({
+            next: (result) => {
+                console.log(result);
+            },
+            error: (error) => {
+                console.error(error);
+            },
+        });
     }
 }

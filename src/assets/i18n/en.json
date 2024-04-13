@@ -107,5 +107,8 @@
         "label": "Sound",
         "muted": "Muted",
         "unmuted": "Unmuted"
+    },
+    "game_date": {
+        "label": "Play date"
     }
 }

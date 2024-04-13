@@ -104,5 +104,8 @@
         "label": "Son",
         "muted": "Muet",
         "unmuted": "Activé"
+    },
+    "game_date": {
+        "label": "Date de jeu"
     }
 }

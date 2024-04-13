@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Settings } from 'src/app/shared/models/settings.model';
+import { Settings, Times } from 'src/app/shared/models/settings.model';
 import {
     readLocalStorageData,
     saveLocalStorageData,
@@ -19,7 +19,7 @@ export class SettingsService {
         if (!settings) {
             settings = {
                 theme: 'light',
-                times: 'medium',
+                times: Times.MEDIUM,
                 addOperator: {
                     enabled: true,
                     min: 1,

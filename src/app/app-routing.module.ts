@@ -16,14 +16,20 @@ const routes: Routes = [
     },
     {
         path: 'instructions',
-
         loadChildren: () =>
             import('./pages/instructions/instructions.module').then(
                 (m) => m.InstructionsModule
             ),
     },
+    {
+        path: 'ranking',
+        canActivate: [authGuard],
+        loadChildren: () =>
+            import('./pages/ranking/ranking.module').then(
+                (m) => m.RankingModule
+            ),
+    },
     { path: '', redirectTo: 'home', pathMatch: 'full' },
-
     { path: '**', redirectTo: 'home' },
 ];
 
