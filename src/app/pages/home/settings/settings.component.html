@@ -392,7 +392,12 @@
                 {{ "cancel.label" | translate }}
             </button>
 
-            <button mat-raised-button [color]="'primary'" type="submit">
+            <button
+                data-test="save-button"
+                mat-raised-button
+                [color]="'primary'"
+                type="submit"
+            >
                 {{ "save.label" | translate }}
             </button>
         </div>

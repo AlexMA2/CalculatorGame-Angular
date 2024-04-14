@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     generateRandomName(): void {
-        const amountLetters = Math.random() * 5 + 3;
+        const amountLetters = Math.round(Math.random() * 5) + 3;
 
         const vowels = 'aeiou';
         const consonants = 'bcdfghjklmnpqrstvwxyz';

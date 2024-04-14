@@ -22,6 +22,7 @@
                 [placeholder]="'username.write' | translate"
             />
             <button
+                data-test="random-name-button"
                 [matTooltip]="'random_name.label' | translate"
                 class="absolute top-[47px] right-2 rounded-full p-2"
                 (click)="generateRandomName()"
@@ -42,6 +43,7 @@
 
         <div class="flex flex-row pb-4 flex-1 gap-2">
             <button
+                data-test="start-button"
                 [matTooltip]="
                     nickControl.invalid ? ('username.validate' | translate) : ''
                 "
@@ -63,6 +65,7 @@
             </button>
 
             <button
+                data-test="settings-button"
                 [matTooltip]="'settings.label' | translate"
                 (click)="openDialogToViewSettings()"
                 matRipple

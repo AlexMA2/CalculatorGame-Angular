@@ -6,6 +6,6 @@ import { Operation } from './operation.model';
 })
 export class OperationPipe implements PipeTransform {
     transform(value: Operation): string {
-        return `${value.firstNumber} ${value.operator} ${value.secondNumber} `;
+        return `${value.firstNumber} ${value.operator} ${value.secondNumber}`;
     }
 }
