@@ -10,20 +10,13 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterModule } from '@angular/router';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { filter, fromEvent, of, takeUntil } from 'rxjs';
+import { of } from 'rxjs';
 import { DummyComponentsModule } from 'src/app/components/dummy-components.module';
 import { GraphQLModule } from 'src/app/graphql.module';
 import { GraphqlService } from 'src/app/shared/services/graphql.service';
+import { TranslateTestingModule } from 'src/test-utils/translate-module/translate-testing.module';
 
 import { HomeComponent } from './home.component';
-
-class TranslateLoaderMock implements TranslateLoader {
-    getTranslation(lang: string) {
-        // Simular la carga de traducciones
-        return of({});
-    }
-}
 
 describe('HomeComponent', () => {
     let component: HomeComponent;
@@ -48,12 +41,7 @@ describe('HomeComponent', () => {
                 MatTooltipModule,
                 GraphQLModule,
                 HttpClientTestingModule, // Importar HttpClientTestingModule para simular peticiones HTTP
-                TranslateModule.forRoot({
-                    loader: {
-                        provide: TranslateLoader,
-                        useClass: TranslateLoaderMock,
-                    }, // Utilizar el Mock del TranslateLoader
-                }),
+                TranslateTestingModule,
                 RouterModule,
             ],
             providers: [GraphqlService],

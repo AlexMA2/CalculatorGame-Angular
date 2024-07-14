@@ -46,13 +46,13 @@
         *ngIf="counterToStartGame < 0 && !finished"
         class="flex flex-col justify-center items-center p-4 h-full"
     >
-        <app-watch
+        <ax-watch
             class="min-h-24"
             [counterTime]="settings.times"
             [enabledSound]="settings.sound"
             (finished)="onFinishTimer()"
         >
-        </app-watch>
+        </ax-watch>
 
         <div
             class="flex flex-row gap-2 items-center justify-between w-full mt-4 mb-2"
